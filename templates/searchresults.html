@@ -3,10 +3,11 @@
 </head>
 <body>
   {% include 'nav.html' %}
-  <form class="search_field" action="{{ url_for('search_books') }}" method="get">
-      <input type="text" name="query" required placeholder="Search for books...">
-      <!-- <input class="btn" type="submit" value="Submit"/> -->
-  </form>
+    <form id="searchForm" class="search_field" action="{{ url_for('search_books') }}" method="get">
+        <input type="text" id="searchQuery" name="query" required placeholder="Search for books...">
+        <!-- <input class="btn" type="submit" value="Submit"/> -->
+        <div id="searchWarning" class="search-warning"></div>
+    </form>
   <div class="container left">
     {% block content %}
         <h1>Search Results</h1>

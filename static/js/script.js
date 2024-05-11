@@ -59,3 +59,22 @@ if ('serviceWorker' in navigator) {
   } else {
     console.log('Service workers are not supported (Firefox Private Browsing).');
   }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('searchForm');
+    const warningDiv = document.getElementById('searchWarning'); // Get the warning container
+
+    form.addEventListener('submit', function(event) {
+        const searchInput = document.getElementById('searchQuery').value;
+        if (!searchInput.trim()) {  // Trim whitespace and check if the input is empty
+            event.preventDefault(); // Prevent the form from submitting
+
+            // Update the warning message
+            warningDiv.innerHTML = "<label>Please enter a meaningful search query.</label>";
+            warningDiv.style.color = 'red'; // Set the color of the message to red
+            warningDiv.style.visibility = 'visible'; // Make sure the message is visible
+        } else {
+            warningDiv.innerHTML = ""; // Clear any previous warning message if the input is valid
+        }
+    });
+});

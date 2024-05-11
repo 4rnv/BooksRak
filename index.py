@@ -220,9 +220,8 @@ def like_review(review_id):
 
 @app.route('/search')
 def search_books():
-    query = request.args.get('query', '')
+    query = request.args.get('query', '').strip()
     if query:
-        # books = session.query(Book).filter(Book.book_name.ilike(f'%{query}%')).all()
         books = session.query(Book).filter(
           or_(
               Book.book_name.ilike(f'%{query}%'), 
@@ -236,7 +235,7 @@ def search_books():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
   if request.method == 'POST':
-    username = request.form['username']
+    username = request.form['username'].strip()
     password = request.form['password']
     profile_picture = request.form.get('profile_picture')
 
@@ -256,7 +255,7 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
   if request.method == 'POST':
-    username = request.form['username']
+    username = request.form['username'].strip()
     password = request.form['password']
     username = username.lower()
     user = authenticate_user(username, password)
