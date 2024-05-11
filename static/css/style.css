@@ -25,6 +25,9 @@
 .left {
   text-align: left;
 }
+.red {
+  color: red;
+}
 
 .mascot_img {
   width: 100%;
@@ -45,16 +48,6 @@ input[type=text], input[type=password], input[type=url] {
   font-size: 1rem;
 }
 
-.regis-login {
-  display: flex;
-  flex-direction: column;
-  margin: 0.2rem;
-  padding: 1rem;
-  gap: 1rem;
-  text-align: left;
-  border: 1px dashed var(--accpink);
-}
-
 body {
   background: black;
   accent-color:  var(--accpink);
@@ -73,7 +66,6 @@ a {
 }
 
 .nav {
-  height: 10vh;
   display: flex;
   margin: 0.5rem;
   flex-direction: row;
@@ -155,6 +147,24 @@ ul {
   padding: 2rem;
   background: #1f1f1f;
   border: 1px solid pink;
+}
+
+.regis_login_container {
+  max-width: 50%;
+  margin: 2rem auto;
+  background: #1f1f1f;
+  border: 1px solid pink;
+  padding: 2rem;
+}
+
+.regis_login {
+  display: flex;
+  flex-direction: column;
+  margin: 0.2rem;
+  padding: 1rem;
+  gap: 1rem;
+  text-align: left;
+  border: 1px dashed var(--accpink);
 }
 
 .profile-container {
@@ -420,6 +430,9 @@ html::-webkit-scrollbar-thumb {
     padding: 1rem;
     margin: 0 0.5rem;
   }
+  .regis_login_container {
+    max-width: fit-content;
+  }
   .name {
     width: 40%;
   }
@@ -436,49 +449,34 @@ html::-webkit-scrollbar-thumb {
 }
 
 .rate {
-    float: left;
+    display: flex;
+    flex-direction: row-reverse;  /* Reverse the order of flex items to correct the left-to-right fill */
+    justify-content: flex-end;   /* Align items to the right side */
+    align-items: center;
     height: 46px;
     padding: 0 10px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-}
-.rate:not(:checked) > input {
-    position:absolute;
-    top:-9999px;
-}
-.rate:not(:checked) > label {
-    float:right;
-    width:1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:30px;
-    color:#ccc;
-}
-.rate:not(:checked) > label:before {
-    content: '★ ';
-}
-.rate > input:checked ~ label {
-    color: #ffd780;    
-}
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
-    color: #ffd780;  
-}
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
-    color: #ffd780;
 }
 
-.captcha_div {
-  /* display: flex;
-  flex-direction: row;
-  gap: 1rem; */
+.rate input {
+    display: none; /* Hide radio buttons */
+}
+
+.rate label {
+    cursor: pointer;
+    font-size: 30px;
+    color: #ccc;
+    margin: 0; /* Remove any default margin */
+}
+
+.rate label:before {
+    content: '★ ';
+}
+
+/* Change color of stars on hover and when selected */
+.rate label:hover,
+.rate label:hover ~ label,
+.rate input:checked ~ label {
+    color: #ffd780;
 }
 
 .error_container {

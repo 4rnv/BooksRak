@@ -11,15 +11,14 @@
     {% block content %}
         <h1>Search Results</h1>
         {% if books %}
-            <ul>
             {% for book in books %}
-                <li>
-                    <strong><a href="/book/{{book['book_id']}}">{{ book.book_name }}</a></strong><br>
-                    Author: {{ book.author_name }}
-                    <div><img src="{{ book.img_url }}" alt="Cover image" width="70" height="100"></div>
-                </li>
+                <div class="flex">
+                    <strong class="name ele external_links"><a href="/book/{{book['book_id']}}">{{ book.book_name }}</a></strong>
+                    <span><i>{{ book.author_name }}</i></span>
+                    <span>{{ book.avg_rating }}</span>
+                    <img src="{{ book.img_url }}" alt="Cover image" width="70" height="100">
+                </div>
             {% endfor %}
-            </ul>
         {% else %}
             <p>No books found.</p>
         {% endif %}

@@ -3,23 +3,22 @@
 </head>
 <body>
   {% include 'nav.html' %}
-    <div class="container">
-    <form action="" method="post" class="sans regis-login">
+    <div class="regis_login_container">
+    <form action="" method="post" class="sans regis_login">
         <h1>Register</h1>
         <a href="/login" class="external_links">Already have an account? Log in.</a>
-        <label for="username">Username</label>
+        <label for="username">Username<sup class="red">*</sup></label>
         <input type="text" minlength=4 maxlength=21 name="username" required>
-        <label for="password">Password</label>
+        <label for="password">Password<sup class="red">*</sup></label>
         <input type="password" name="password" required>
         <label for="profile_picture">Profile Picture > <a href="https://catbox.moe" class="external_links" target="_blank">Upload on Catbox</a></label>
         <input type="url" name="profile_picture" placeholder="Upload your pfp on Catbox and link it here">
         <div class="captcha_div">
-          <p>Captcha:</p>
+          <p>Captcha<sup class="red">*</sup></p>
           <p>{{ captcha_html(captcha)|safe }}</p>
         </div>
         <input class="btn" type="submit" value="Register">
     </form>
     </div>
-    {% include 'footer.html' %}
   </body>
 </html>

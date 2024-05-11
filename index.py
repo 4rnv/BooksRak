@@ -3,7 +3,7 @@ from flask_login import LoginManager, login_required, login_user, logout_user, c
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, RadioField, validators
 from flask_simple_captcha import CAPTCHA
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine, text, or_
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
 import os
@@ -222,7 +222,13 @@ def like_review(review_id):
 def search_books():
     query = request.args.get('query', '')
     if query:
-        books = session.query(Book).filter(Book.book_name.ilike(f'%{query}%')).all()
+        # books = session.query(Book).filter(Book.book_name.ilike(f'%{query}%')).all()
+        books = session.query(Book).filter(
+          or_(
+              Book.book_name.ilike(f'%{query}%'), 
+              Book.author_name.ilike(f'%{query}%')
+          )
+      ).all()
     else:
         books = []
     return render_template('searchresults.html', books=books)
