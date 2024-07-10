@@ -66,7 +66,7 @@ class ReviewForm(FlaskForm):
 def unauthorized(error):
   url = '/login'
   return render_template(
-      'error.html',
+      'error.jinja',
       error_code=401,
       error_message=
       'You must be logged in to perform this action. Please log in or sign up.',
@@ -76,7 +76,7 @@ def unauthorized(error):
 @app.errorhandler(403)
 def forbidden(error):
   url = '/'
-  return render_template('error.html',
+  return render_template('error.jinja',
                          error_code=403,
                          error_message='Forbidden, Classified Information.',
                          url=url), 403
@@ -85,7 +85,7 @@ def forbidden(error):
 @app.errorhandler(404)
 def page_not_found(error):
   url = '/'
-  return render_template('error.html',
+  return render_template('error.jinja',
                          error_code=404,
                          error_message='Page Not Found.',
                          url=url), 404
@@ -93,7 +93,7 @@ def page_not_found(error):
 
 @app.errorhandler(405)
 def method_not_allowed(error):
-  return render_template('error.html',
+  return render_template('error.jinja',
                          error_code=405,
                          error_message='Method Not Allowed.'), 405
 
@@ -101,23 +101,23 @@ def method_not_allowed(error):
 @app.route("/")
 def home():
   #books = load_books_from_db()
-  return render_template('home.html')
+  return render_template('home.jinja')
 
 
 @app.route("/books")
 def bookspage():
   books = load_books_from_db()
-  return render_template('oldhome.html', books=books)
+  return render_template('oldhome.jinja', books=books)
 
 
 @app.route("/new")
 def new():
-  return render_template('new.html')
+  return render_template('new.jinja')
 
 
 @app.route("/about")
 def about():
-  return render_template('about.html', title='About')
+  return render_template('about.jinja', title='About')
 
 
 @app.route("/api/books")
@@ -131,12 +131,12 @@ def list():
 def details(id):
   book = load_book_details(id)
   if not book:
-    return render_template('error.html',
+    return render_template('error.jinja',
                            error_code=404,
                            error_message='Book not found'), 404
   if request.method == 'GET':
     new_captcha_dict = SIMPLE_CAPTCHA.create()
-    return render_template('book.html', book=book, captcha=new_captcha_dict)
+    return render_template('book.jinja', book=book, captcha=new_captcha_dict)
 
 
 @app.route("/book/<id>/review", methods=['POST'])
@@ -160,10 +160,10 @@ def create_review(id):
       return redirect(url_for('review_submitted', id=id))
     else:
       message = 'You have already reviewed this book.'
-      return render_template('epicfail.html', message=message)
+      return render_template('epicfail.jinja', message=message)
   else:
     message = 'Yikes sweetie, you failed the CAPTCHA, not a good look 💅'
-    return render_template('epicfail.html', message=message)
+    return render_template('epicfail.jinja', message=message)
 
 
 def replace(text):
@@ -175,7 +175,7 @@ def replace(text):
 @app.route("/book/<id>/review/submitted")
 def review_submitted(id):
   book = load_book_details(id)
-  return render_template('reviewsuccess.html', book=book)
+  return render_template('reviewsuccess.jinja', book=book)
 
 
 @app.route("/book/<id>/reviews")
@@ -184,11 +184,11 @@ def load_reviews(id):
   reviews_data = load_reviews_from_db(id)
   # If load_reviews_from_db returned None, meaning there are no reviews
   if reviews_data is None:
-    return render_template('error.html',
+    return render_template('error.jinja',
                            error_code=404,
                            error_message='No reviews for this book'), 404
   else:
-    return render_template('reviews.html',
+    return render_template('reviews.jinja',
                            reviews_data=reviews_data,
                            book=book)
 
@@ -230,7 +230,7 @@ def search_books():
       ).all()
     else:
         books = []
-    return render_template('searchresults.html', books=books)
+    return render_template('searchresults.jinja', books=books)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -249,7 +249,7 @@ def register():
       return 'failed captcha'
   if request.method == 'GET':
     new_captcha_dict = SIMPLE_CAPTCHA.create()
-    return render_template('register.html', captcha=new_captcha_dict)
+    return render_template('register.jinja', captcha=new_captcha_dict)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -264,8 +264,8 @@ def login():
       return redirect(url_for('bookspage'))
     else:
       message = 'Invalid username or password'
-      return render_template('epicfail.html', message=message)
-  return render_template('login.html')
+      return render_template('epicfail.jinja', message=message)
+  return render_template('login.jinja')
 
 
 @app.route('/@<username>')
@@ -273,11 +273,11 @@ def profile(username):
   session = Session()
   user = session.query(User).filter_by(username=username).first()
   if not user:
-    return render_template('error.html',
+    return render_template('error.jinja',
                            error_code=404,
                            error_message='User not found'
                            ), 404  # Handling case where user does not exist
-  return render_template('profile.html', user=user)
+  return render_template('profile.jinja', user=user)
 
 
 @app.route('/logout')
