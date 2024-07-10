@@ -1,8 +1,8 @@
-{% include 'top.html' %}
+{% include 'top.jinja' %}
 <title>Reviews for {{book.book_name}}</title>
   </head>
   <body>
-    {% include 'nav.html' %}
+    {% include 'nav.jinja' %}
     <h1>Reviews for {{book.book_name}}</h1>
     <div class="review_grid">
       {% for review in reviews_data %}
@@ -23,6 +23,6 @@
       {% endfor %}
     </div>
     <a href="/book/{{book.book_id}}" class="btn">Post your own review</a>
-    {% include 'footer.html' %}
+    {% include 'footer.jinja' %}
   </body>
 </html>

@@ -1,8 +1,8 @@
-{% include 'top.html' %}
+{% include 'top.jinja' %}
 <title>{{user.username}}</title>
   </head>
   <body>
-    {% include 'nav.html' %}
+    {% include 'nav.jinja' %}
     <div class="profile-container">
       {% if user.profile_picture_link %}
           <img src="{{ user.profile_picture_link }}" alt="Profile Picture" height=128 width=128 class="review_pfp thick_border">
@@ -13,6 +13,6 @@
       <p>User ID: {{ user.user_id }}</p>
       <p>Account created on: {{ user.created_at }}</p>
     </div>
-    {% include 'footer.html' %}
+    {% include 'footer.jinja' %}
   </body>
 </html>

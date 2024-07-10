@@ -1,8 +1,8 @@
-{% include 'top.html' %}
+{% include 'top.jinja' %}
 <title>Submit review for {{book.book_name}}</title>
   </head>
   <body>
-    {% include 'nav.html' %}
+    {% include 'nav.jinja' %}
     <div class="container">
       <h2>{{book.book_name}}</h2>
       <span><img src="{{book.img_url}}" width=70 height=100></span>
@@ -32,6 +32,6 @@
       <input class="post_review" type="submit" value="Post Review">
       </form>
     </div>
-    {% include 'footer.html' %}
+    {% include 'footer.jinja' %}
   </body>
 </html>

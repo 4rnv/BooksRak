@@ -1,8 +1,8 @@
-{% include 'top.html' %}
+{% include 'top.jinja' %}
   <title>BooksRak</title>
 </head>
 <body>
-  {% include 'nav.html' %}
+  {% include 'nav.jinja' %}
   <form id="searchForm" class="search_field" action="{{ url_for('search_books') }}" method="get">
       <input type="text" id="searchQuery" name="query" required placeholder="Search for books...">
       <!-- <input class="btn" type="submit" value="Submit"/> -->
@@ -20,6 +20,6 @@
     <a href="/register" class="a_special">Register</a>
     </div>
   </div>
-  {% include 'footer.html' %}
+  {% include 'footer.jinja' %}
   </body>
 </html>
